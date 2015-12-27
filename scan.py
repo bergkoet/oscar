@@ -260,6 +260,14 @@ while True:
     #     continue
     #
     # print "Don't know what to add for product description '{0}'".format(desc)
-    # notify_no_rule(desc, barcode)
 
-    add_grocery_item(trello_api, desc)
+    if desc is not None:
+        add_grocery_item(trello_api, desc)
+        print "Code found. Adding full item description to list."
+
+    # Offer to learn a short name for this barcode
+    publish_barcode_opp(
+        create_barcode_opp(trello_db, barcode, desc)
+    )
+    print "Publishing learning opportunity for short description."
+

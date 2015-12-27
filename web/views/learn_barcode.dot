@@ -2,7 +2,7 @@
   <h1>Oscar</h1>
 
   <div class='row span12'>
-    <p>What grocery item should I add for the barcode {{=it.opp_data.barcode}}?</p>
+    <p>What grocery item name should I add for '{{=it.opp_data.desc}}' (barcode:{{=it.opp_data.barcode}})?</p>
 
     <form action='/submit-learn-barcode' method='post' role='form'>
       <input id='barcode' type='hidden' value='{{=it.opp_data.barcode}}' name='barcode' />

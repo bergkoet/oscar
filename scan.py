@@ -236,34 +236,19 @@ while True:
         print "Received description '{0}' for barcode {1}".format(desc, unicode(barcode))
     except CodeInvalid:
         print "Barcode {0} not recognized as a UPC; creating learning opportunity".format(unicode(barcode))
-        try:
-            opp = create_barcode_opp(trello_db, barcode, desc)
-        except:
-            opp = create_barcode_opp(trello_db, barcode)
+        opp = create_barcode_opp(trello_db, barcode)
         print "Code not UPC. Publishing learning opportunity"
         publish_barcode_opp(opp)
         continue
     except CodeNotFound:
         print "Barcode {0} not found in UPC database; creating learning opportunity".format(unicode(barcode))
-        try:
-            opp = create_barcode_opp(trello_db, barcode, desc)
-        except:
-            opp = create_barcode_opp(trello_db, barcode)
+        opp = create_barcode_opp(trello_db, barcode)
         print "Code not found. Publishing learning opportunity"
         publish_barcode_opp(opp)
         continue
 
-    # # Match against description rules
-    # desc_rule = match_description_rule(trello_db, desc)
-    # if desc_rule is not None:
-    #     add_grocery_item(trello_api, desc_rule['item'])
-    #     continue
-    #
-    # print "Don't know what to add for product description '{0}'".format(desc)
-
-    if desc is not None:
-        add_grocery_item(trello_api, desc)
-        print "Code found. Adding full item description to list."
+    add_grocery_item(trello_api, desc)
+    print "Code found. Adding full item description to list."
 
     # Offer to learn a short name for this barcode
     publish_barcode_opp(

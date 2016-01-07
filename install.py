@@ -164,13 +164,8 @@ run_command('pip install PyYAML trello twilio')
 
 
 ######################################## oscar_web dependencies
-run_command('wget http://nodejs.org/dist/v0.10.22/node-v0.10.22.tar.gz')
-run_command('tar xzvf node-v0.10.22.tar.gz')
-os.chdir('node-v0.10.22')
-run_command('./configure')
-run_command('make')
-run_command('make install')
-os.chdir('..')
+run_command('wget http://node-arm.herokuapp.com/node_latest_armhf.deb')
+run_command('dpkg -i node_latest_armhf.deb')
 
 
 ######################################## Dependencies of both

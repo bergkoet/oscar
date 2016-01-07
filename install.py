@@ -309,8 +309,8 @@ print 'If everything worked, then you should be able to start scanning'
 print 'barcodes with oscar. Check out the logs of the scanner process and'
 print 'the web app, respectively, at'
 print
-print '    /var/lib/supervisor/log/oscar_scan.log'
-print '    /var/lib/supervisor/log/oscar_web.log'
+print '    /var/log/supervisor/oscar_scan.log'
+print '    /var/log/supervisor/oscar_web.log'
 print
 print 'And report any bugs at https://github.com/danslimmon/oscar/issues.'
 print

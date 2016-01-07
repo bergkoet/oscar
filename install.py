@@ -180,7 +180,7 @@ run_command('apt-get install git supervisor')
 
 ######################################## Oscar itself
 os.chdir('/var')
-run_command('git clone https://github.com/danslimmon/oscar.git')
+run_command('git clone https://github.com/bergkoet/oscar.git')
 os.chdir('/var/oscar/web')
 run_command('npm install')
 

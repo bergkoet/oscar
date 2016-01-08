@@ -174,7 +174,7 @@ def match_description_rule(trello_db, desc):
     return None
 
 
-def add_grocery_item(trello_api, item):
+def add_grocery_item(trello_api, item, desc=None):
     """Adds the given item to the grocery list (if it's not already present)."""
     # Get the current grocery list
     grocery_board_id = conf.get()['trello_grocery_board']
@@ -186,7 +186,7 @@ def add_grocery_item(trello_api, item):
     # Add item if it's not there already
     if item not in card_names:
         print "Adding '{0}' to grocery list".format(item)
-        trello_api.lists.new_card(grocery_list['id'], item)
+        trello_api.lists.new_card(grocery_list['id'], item, desc)
     else:
         print "Item '{0}' is already on the grocery list; not adding".format(item)
 
@@ -247,10 +247,17 @@ while True:
         publish_barcode_opp(opp)
         continue
 
-    add_grocery_item(trello_api, desc)
-    print "Code found. Adding full item description to list."
+    # Match against description rules
+    desc_rule = match_description_rule(trello_db, desc)
+    if desc_rule is not None:
+        add_grocery_item(trello_api, desc_rule['item'], desc)
+        continue
 
-    # Offer to learn a short name for this barcode
+    # If no match found, name card with full description and offer to learn a
+    # short name for this barcode
+    add_grocery_item(trello_api, desc)
+    print "Adding full item description to list."
+
     publish_barcode_opp(
         create_barcode_opp(trello_db, barcode, desc)
     )

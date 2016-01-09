@@ -246,6 +246,11 @@ while True:
         print "Code not found. Publishing learning opportunity"
         publish_barcode_opp(opp)
         continue
+    except urllib2.HTTPError, e:
+        print "Unexpected error while contacting UPC database: \'{}\'".format(e.msg)
+        opp = create_barcode_opp(trello_db, barcode)
+        print "Publishing learning opportunity"
+        publish_barcode_opp(opp)
 
     # Match against description rules
     desc_rule = match_description_rule(trello_db, desc)

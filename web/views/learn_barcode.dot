@@ -6,6 +6,7 @@
 
     <form action='/submit-learn-barcode' method='post' role='form'>
       <input id='barcode' type='hidden' value='{{=it.opp_data.barcode}}' name='barcode' />
+      <input id='desc' type='hidden' value='{{=it.opp_data.desc}}' name='desc' />
       <div class='form-group'>
         <textarea id='item' class='form-control xxlarge' value='' name='item' autocapitalize='off'></textarea>
       </div>

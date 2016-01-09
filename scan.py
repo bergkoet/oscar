@@ -223,7 +223,7 @@ while True:
     # Match against barcode rules
     barcode_rule = match_barcode_rule(trello_db, barcode)
     if barcode_rule is not None:
-        add_grocery_item(trello_api, barcode_rule['item'])
+        add_grocery_item(trello_api, barcode_rule['item'], barcode_rule['desc'])
         continue
 
     # Get the item's description

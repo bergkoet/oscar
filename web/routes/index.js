@@ -7,7 +7,7 @@ exports.learn_barcode = function(req, res){
 };
 
 exports.submit_learn_barcode = function(req, res){
-  var rule = {barcode: req.body['barcode'], item: req.body['item']};
+  var rule = {barcode: req.body['barcode'], item: req.body['item'], desc: req.body['desc']};
 
   trellodb.insert('barcode_rules',
                   rule,

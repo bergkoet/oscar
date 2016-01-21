@@ -1,3 +1,5 @@
+This is a fork; the original project is available [here](https://github.com/danslimmon/oscar).
+
 oscar
 =====
 

@@ -91,7 +91,8 @@ def generate_opp_id():
 
 
 def opp_url(opp):
-    return 'http://{0}/learn-barcode/{1}'.format(local_ip(), opp['opp_id'])
+    return 'http://{0}:{1}/learn-barcode/{2}'.format(
+        local_ip(), conf.get()['port'], opp['opp_id'])
 
 
 

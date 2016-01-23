@@ -21,6 +21,7 @@ from lib import trellodb
 from lib import conf
 
 
+""" Function and class definitions """
 def parse_scanner_data(scanner_data):
     upc_chars = []
     for i in range(0, len(scanner_data), 16):
@@ -39,6 +40,7 @@ def parse_scanner_data(scanner_data):
 
 class CodeNotFound(Exception): pass
 class CodeInvalid(Exception): pass
+
 
 class UPCAPI:
     BASEURL = 'https://www.digit-eyes.com/gtin/v2_0'
@@ -95,7 +97,6 @@ def opp_url(opp):
         local_ip(), conf.get()['port'], opp['opp_id'])
 
 
-
 def create_barcode_opp(trello_db, barcode, desc=''):
     """Creates a learning opportunity for the given barcode and writes it to Trello.
 
@@ -121,6 +122,7 @@ def publish_barcode_opp(opp):
     else:
         send_via_twilio(message)
 
+
 def notify_no_rule(desc, barcode):
     learn_opp = opp_url(create_barcode_opp(trello_db, barcode, desc))
     message = '''Hi! Oscar here. You scanned a code I don't know what to do with barcode {1}: "{0}". Care to fill me in?'''.format(learn_opp, desc )
@@ -131,11 +133,13 @@ def notify_no_rule(desc, barcode):
     else:
         send_via_twilio(message)
 
+
 def send_via_twilio(msg):
     client = TwilioRestClient(conf.get()['twilio_sid'], conf.get()['twilio_token'])
     message = client.sms.messages.create(body=msg,
                                          to='+{0}'.format(conf.get()['twilio_dest']),
                                          from_='+{0}'.format(conf.get()['twilio_src']))
+
 
 def send_via_email(msg, subject):
     to = conf.get()['email_dest']
@@ -152,6 +156,7 @@ def send_via_email(msg, subject):
     smtpserver.sendmail(gmail_user, to, message)
     print 'Email sent.'
     smtpserver.close()
+
 
 def match_barcode_rule(trello_db, barcode):
     """Finds a barcode rule matching the given barcode.
@@ -192,6 +197,7 @@ def add_grocery_item(trello_api, item, desc=None):
         print "Item '{0}' is already on the grocery list; not adding".format(item)
 
 
+""" The main script """
 trello_api = trello.TrelloApi(conf.get()['trello_app_key'])
 trello_api.set_token(conf.get()['trello_token'])
 trello_db = trellodb.TrelloDB(trello_api, conf.get()['trello_db_board'])
@@ -227,13 +233,13 @@ while True:
         add_grocery_item(trello_api, barcode_rule['item'], barcode_rule['desc'])
         continue
 
-    # Get the item's description
+    # This must be a new item, so get a description from the database
     if conf.get()['barcode_api'] == 'zeroapi':
-        u = FakeAPI()
+        upc_api = FakeAPI()
     else:
-        u = UPCAPI(conf.get()['digiteyes_app_key'], conf.get()['digiteyes_auth_key'])
+        upc_api = UPCAPI(conf.get()['digiteyes_app_key'], conf.get()['digiteyes_auth_key'])
     try:
-        desc = u.get_description(barcode)
+        desc = upc_api.get_description(barcode)
         print "Received description '{0}' for barcode {1}".format(desc, unicode(barcode))
     except CodeInvalid:
         print "Barcode {0} not recognized as a UPC; creating learning opportunity".format(unicode(barcode))

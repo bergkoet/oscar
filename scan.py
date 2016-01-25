@@ -205,10 +205,10 @@ def add_grocery_item(trello_api, item, desc=None):
     # Add item if it's not there already
     # todo: check barcode instead of name.  maybe an update the name if needed
     if item not in card_names:
-        print "Adding '{0}' to grocery list".format(item)
+        print "Adding '{0}' to grocery list.".format(item)
         trello_api.lists.new_card(grocery_list['id'], item, desc)
     else:
-        print "Item '{0}' is already on the grocery list; not adding".format(item)
+        print "Item '{0}' is already on the grocery list; not adding.".format(item)
 
 
 """ The main script """
@@ -218,7 +218,7 @@ trello_db = trellodb.TrelloDB(trello_api, conf.get()['trello_db_board'])
 
 f = open(conf.get()['scanner_device'], 'rb')
 while True:
-    print 'Waiting for scanner data'
+    print 'Waiting for scanner data...'
 
     # Wait for binary data from the scanner and then read it
     scan_complete = False
@@ -239,7 +239,7 @@ while True:
 
     # Parse the binary data as a barcode
     barcode = parse_scanner_data(scanner_data)
-    print "Scanned barcode '{0}'".format(barcode)
+    print "Scanned barcode '{0}'.".format(barcode)
 
     # Match against known barcodes
     barcode_rule = match_barcode_rule(trello_db, barcode)
@@ -254,28 +254,27 @@ while True:
         upc_api = UPCAPI(conf.get()['digiteyes_app_key'], conf.get()['digiteyes_auth_key'])
     try:
         desc = upc_api.get_description(barcode)
-        print "Received description '{0}' for barcode {1}".format(desc, unicode(barcode))
+        print "Received description '{0}' for barcode {1}.".format(desc, unicode(barcode))
     except CodeInvalid:
-        print "Barcode {0} not recognized as a UPC; creating learning opportunity".format(unicode(barcode))
+        print "Barcode {0} not recognized as a UPC; creating learning opportunity.".format(unicode(barcode))
         opp = create_barcode_opp(trello_db, barcode)
-        print "Code not UPC. Publishing learning opportunity"
+        print "Code not UPC. Publishing learning opportunity."
         publish_unknown(opp)
         continue
     except CodeNotFound:
-        print "Barcode {0} not found in UPC database; creating learning opportunity".format(unicode(barcode))
+        print "Barcode {0} not found in UPC database; creating learning opportunity.".format(unicode(barcode))
         opp = create_barcode_opp(trello_db, barcode)
-        print "Code not found. Publishing learning opportunity"
+        print "Code not found. Publishing learning opportunity."
         publish_unknown(opp)
         continue
     except urllib2.HTTPError, e:
         print "Unexpected error while contacting UPC database: \'{}\'".format(e.msg)
         opp = create_barcode_opp(trello_db, barcode)
-        print "Publishing learning opportunity"
+        print "Publishing learning opportunity."
         publish_unknown(opp)
 
     # Add card with full description
     add_grocery_item(trello_api, desc)
-    print "Adding full item description to list."
 
     # Offer to learn a short name for this barcode
     opp = create_barcode_opp(trello_db, barcode, desc)

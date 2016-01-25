@@ -113,9 +113,13 @@ def create_barcode_opp(trello_db, barcode, desc=''):
     return opp
 
 
-def publish_barcode_opp(opp):
-    message = '''Hi! Oscar here. You scanned a code I didn't recognize for a "{1}". Care to fill me in?  {0}'''.format(opp_url(opp), opp['desc'])
+def publish_unknown(opp):
+    """ The barcode wasn't found in the database, so there is no known
+    description or suggestions. """
     subject = '''Didn't Recognize Barcode'''
+    message = '''Hi! Oscar here. You scanned a code ({}) I didn't recognize.  '''.format(opp['barcode'])
+    message += '''Care to fill me in?''' + '\n' + opp_url(opp)
+
     communication_method = conf.get()['communication_method']
     if communication_method == 'email':
         send_via_email(message, subject)
@@ -123,10 +127,19 @@ def publish_barcode_opp(opp):
         send_via_twilio(message)
 
 
-def notify_no_rule(desc, barcode):
-    learn_opp = opp_url(create_barcode_opp(trello_db, barcode, desc))
-    message = '''Hi! Oscar here. You scanned a code I don't know what to do with barcode {1}: "{0}". Care to fill me in?'''.format(learn_opp, desc )
-    subject = '''No rules set for grocery item'''
+def publish_learning_opp(opp, suggestions):
+    """ The barcode and description were found, but we'll offer to learn a
+    nickname for next time. """
+    subject = '''Learning: {}'''.format(opp['desc'])
+    message = '''Hi! Oscar here. I added a new item "{}" to the list.'''.format(opp['desc'])
+    message += '''\nYou can create a shorter name to use next time here:'''
+    message += '\n'+opp_url(opp)
+    if suggestions:
+        # Add links to auto-learn a suggested nickname
+        message += '''\nor you can quickly select one of the following:'''
+        for name in suggestions:
+            message += '\n\'{name}\' -> {main_url}?item={name}'.format(main_url=opp_url(opp), name=name)
+
     communication_method = conf.get()['communication_method']
     if communication_method == 'email':
         send_via_email(message, subject)
@@ -190,6 +203,7 @@ def add_grocery_item(trello_api, item, desc=None):
     card_names = [card['name'] for card in cards]
 
     # Add item if it's not there already
+    # todo: check barcode instead of name.  maybe an update the name if needed
     if item not in card_names:
         print "Adding '{0}' to grocery list".format(item)
         trello_api.lists.new_card(grocery_list['id'], item, desc)
@@ -227,7 +241,7 @@ while True:
     barcode = parse_scanner_data(scanner_data)
     print "Scanned barcode '{0}'".format(barcode)
 
-    # Match against barcode rules
+    # Match against known barcodes
     barcode_rule = match_barcode_rule(trello_db, barcode)
     if barcode_rule is not None:
         add_grocery_item(trello_api, barcode_rule['item'], barcode_rule['desc'])
@@ -245,33 +259,36 @@ while True:
         print "Barcode {0} not recognized as a UPC; creating learning opportunity".format(unicode(barcode))
         opp = create_barcode_opp(trello_db, barcode)
         print "Code not UPC. Publishing learning opportunity"
-        publish_barcode_opp(opp)
+        publish_unknown(opp)
         continue
     except CodeNotFound:
         print "Barcode {0} not found in UPC database; creating learning opportunity".format(unicode(barcode))
         opp = create_barcode_opp(trello_db, barcode)
         print "Code not found. Publishing learning opportunity"
-        publish_barcode_opp(opp)
+        publish_unknown(opp)
         continue
     except urllib2.HTTPError, e:
         print "Unexpected error while contacting UPC database: \'{}\'".format(e.msg)
         opp = create_barcode_opp(trello_db, barcode)
         print "Publishing learning opportunity"
-        publish_barcode_opp(opp)
+        publish_unknown(opp)
+
+    # Add card with full description
+    add_grocery_item(trello_api, desc)
+    print "Adding full item description to list."
+
+    # Offer to learn a short name for this barcode
+    opp = create_barcode_opp(trello_db, barcode, desc)
+    print "Creating learning opportunity."
+    suggestions = []
 
     # Match against description rules
     desc_rule = match_description_rule(trello_db, desc)
     if desc_rule is not None:
-        add_grocery_item(trello_api, desc_rule['item'], desc)
-        continue
+        suggestions.append(desc_rule['item'])
 
-    # If no match found, name card with full description and offer to learn a
-    # short name for this barcode
-    add_grocery_item(trello_api, desc)
-    print "Adding full item description to list."
+    # todo: Suggest Digit-Eyes categories
 
-    publish_barcode_opp(
-        create_barcode_opp(trello_db, barcode, desc)
-    )
+    publish_learning_opp(opp, suggestions)
     print "Publishing learning opportunity for short description."
 

@@ -176,10 +176,9 @@ def match_barcode_rule(trello_db, barcode):
     """Finds a barcode rule matching the given barcode.
 
        Returns the rule if it exists, otherwise returns None."""
-    rules = trello_db.get_all('barcode_rules')
-    for r in rules:
-        if r['barcode'] == barcode:
-            return r
+    for rule in trello_db.get_all('barcode_rules'):
+        if rule['barcode'] == barcode:
+            return rule
     return None
 
 
@@ -187,10 +186,9 @@ def match_description_rule(trello_db, desc):
     """Finds a description rule matching the given product description.
 
        Returns the rule if it exists, otherwise returns None."""
-    rules = trello_db.get_all('description_rules')
-    for r in rules:
-        if r['search_term'].encode('utf8').lower() in desc.lower():
-            return r
+    for rule in trello_db.get_all('description_rules'):
+        if rule['search_term'] in desc.lower():
+            return rule
     return None
 
 # Load list of keywords

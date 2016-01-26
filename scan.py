@@ -192,7 +192,7 @@ def match_synonym_rule(trello_db, desc):
     return None
 
 # Load list of keywords
-with io.open('keywords.txt', encoding='UTF8', mode='r') as kw_file:
+with io.open('/var/oscar/keywords.txt', encoding='UTF8', mode='r') as kw_file:
     keywords = [row.strip('\r\n') for row in kw_file.readlines()]
 
 def find_keywords(desc):

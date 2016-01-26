@@ -1,0 +1,305 @@
+Asparagus
+V8
+Broccoli
+Carrots
+Cauliflower
+Celery
+Corn
+Cucumbers
+Lettuce
+Greens
+Mushrooms
+Onions
+Peppers
+Potatoes
+Spinach
+Squash
+Zucchini
+Tomatoes
+BBQ sauce
+Gravy
+Honey
+Hot sauce
+Jam
+Jelly
+Preserves
+Ketchup
+Mustard
+Mayonnaise
+Pasta sauce
+Relish
+Salad dressing
+Salsa
+Soy sauce
+Steak sauce
+Syrup
+Worcestershire sauce
+Butter
+Cottage cheese
+Half & half
+Milk
+Sour cream
+Whipped cream
+Yogurt
+Margarine
+Bagels
+Croissants
+Buns
+Rolls
+Cake
+Cookies
+Donuts
+Pastries
+Fresh bread
+Pie
+Pita bread
+Sliced bread
+Antiperspirant
+Deodorant
+Bath soap
+Hand soap
+Condoms
+Cosmetics
+Cotton swabs
+Facial cleanser
+Facial tissue
+Feminine products
+Floss
+Hair gel
+Lip balm
+Moisturizing lotion
+Mouthwash
+Razors
+Shaving cream
+Shampoo
+Conditioner
+Sunblock
+Toilet paper
+Toothpaste
+Vitamins
+Supplements
+Cotton balls
+Hair spray
+Air freshener
+Bathroom cleaner
+Bleach
+Detergent
+Dish
+Dishwasher soap
+Garbage bags
+Glass cleaner
+Mop head
+Vacuum bags
+Sponges
+Scrubbers
+CDRs
+DVDRs
+Notepad
+Envelopes
+Glue
+Tape
+Printer paper
+Pens
+Pencils
+Postage stamps
+Baking powder
+Soda
+Bread crumbs
+Cake
+Brownie mix
+icing
+Chocolate chips
+Cocoa
+Flour
+Shortening
+Sugar
+Sugar substitute
+Yeast
+baking soda
+Bleu cheese
+Cheddar
+Cottage cheese
+Cream cheese
+Feta
+Goat cheese
+Mozzarella
+Parmesan
+Provolone
+Ricotta
+Sandwich slices
+Swiss
+Apples
+Avocados
+Bananas
+Berries
+Cherries
+Grapefruit
+Grapes
+Kiwis
+Lemons
+Limes
+Melon
+Nectarines
+Oranges
+Peaches
+Pears
+Plums
+Bouillon cubes
+Cereal
+Coffee
+Instant potatoes
+Lemon juice
+Lime juice
+Mac & cheese
+Olive oil
+Packaged meals
+Pancake mix
+Waffle mix
+Pasta
+Peanut butter
+Pickles
+Rice
+Tea
+Vegetable oil
+Vinegar
+coffee filters
+Bacon
+Sausage
+Beef
+Chicken
+Ground beef
+ground Turkey
+Ham
+Pork
+Hot dogs
+Lunchmeat
+Turkey
+Candy
+Gum
+Cookies
+Crackers
+Dried fruit
+Granola bars
+Granola Mix
+Nuts
+Seeds
+Oatmeal
+Popcorn
+Potato chips
+Corn chips
+Pretzels
+Allergy
+Antibiotic
+Antidiarrheal
+Aspirin
+Antacid
+Band-aids
+Cold
+Flu
+Sinus
+Pain reliever
+Cigarettes
+Automotive
+Batteries
+Charcoal
+Propane
+Flowers
+Greeting card
+Insect repellent
+Light bulbs
+Newspaper
+Magazine
+Aluminum foil
+Napkins
+Non-stick spray
+Paper towels
+Plastic wrap
+Sandwich bags
+Freezer bags
+Wax paper
+Catfish
+Crab
+Lobster
+Mussels
+Oysters
+Salmon
+Shrimp
+Tilapia
+Tuna
+Baby food
+Diapers
+Formula
+Lotion
+Baby wash
+Wipes
+Bagels
+Chip dip
+Eggs
+Fake eggs
+English muffins
+Fruit juice
+Hummus
+Tofu
+Tortillas
+Applesauce
+Baked beans
+Broth
+Fruit
+Olives
+Tinned meats
+Tuna
+Chicken
+Soup
+Chili
+Tomatoes
+Veggies
+Breakfasts
+Burritos
+Fish sticks
+Fries
+Tater tots
+Ice cream
+Sorbet
+Juice concentrate
+Pizza
+Pizza Rolls
+Popsicles
+TV dinner
+Vegetables
+Basil
+Black pepper
+Cilantro
+Cinnamon
+Garlic
+Ginger
+Mint
+Oregano
+Paprika
+Parsley
+Red pepper
+Salt
+Vanilla extract
+Beer
+Club soda
+Tonic
+Champagne
+Gin
+Juice
+Mixers
+Red wine
+White wine
+wine
+Rum
+Saké
+Soda pop
+Sports drink
+Whiskey
+Vodka
+Cat food
+cat Treats
+Cat litter
+Dog food
+dog Treats
+Flea treatment
+Pet shampoo
+sriracha

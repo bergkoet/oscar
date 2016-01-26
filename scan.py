@@ -11,6 +11,7 @@ import urllib2
 import hashlib
 import hmac
 import base64
+import io
 
 import trello
 from twilio.rest import TwilioRestClient
@@ -192,6 +193,13 @@ def match_description_rule(trello_db, desc):
             return r
     return None
 
+# Load list of keywords
+with io.open('keywords.txt', encoding='UTF8', mode='r') as kw_file:
+    keywords = [row.strip('\r\n') for row in kw_file.readlines()]
+
+def find_keywords(desc):
+    """ Returns keywords in the item description to suggest as short names. """
+    return [word for word in keywords if word.lower() in desc.lower()]
 
 def add_grocery_item(trello_api, item, desc=None):
     """Adds the given item to the grocery list (if it's not already present)."""
@@ -203,7 +211,6 @@ def add_grocery_item(trello_api, item, desc=None):
     card_names = [card['name'] for card in cards]
 
     # Add item if it's not there already
-    # todo: check barcode instead of name.  maybe an update the name if needed
     if item not in card_names:
         print "Adding '{0}' to grocery list.".format(item)
         trello_api.lists.new_card(grocery_list['id'], item, desc)
@@ -279,6 +286,7 @@ while True:
     # Offer to learn a short name for this barcode
     opp = create_barcode_opp(trello_db, barcode, desc)
     print "Creating learning opportunity."
+
     suggestions = []
 
     # Match against description rules
@@ -286,7 +294,8 @@ while True:
     if desc_rule is not None:
         suggestions.append(desc_rule['item'])
 
-    # todo: Suggest Digit-Eyes categories
+    # Match against keyword list
+    suggestions += find_keywords(desc)
 
     publish_learning_opp(opp, suggestions)
     print "Publishing learning opportunity for short description."

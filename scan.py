@@ -182,11 +182,11 @@ def match_barcode_rule(trello_db, barcode):
     return None
 
 
-def match_description_rule(trello_db, desc):
+def match_synonym_rule(trello_db, desc):
     """Finds a description rule matching the given product description.
 
        Returns the rule if it exists, otherwise returns None."""
-    for rule in trello_db.get_all('description_rules'):
+    for rule in trello_db.get_all('synonym_rules'):
         if rule['search_term'] in desc.lower():
             return rule
     return None
@@ -288,7 +288,7 @@ while True:
     suggestions = []
 
     # Match against description rules
-    desc_rule = match_description_rule(trello_db, desc)
+    desc_rule = match_synonym_rule(trello_db, desc)
     if desc_rule is not None:
         suggestions.append(desc_rule['item'])
 

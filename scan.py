@@ -118,6 +118,7 @@ def create_barcode_opp(trello_db, barcode, desc=''):
     """Creates a learning opportunity for the given barcode and writes it to Trello.
 
        Returns the dict."""
+    print "Creating learning opportunity for barcode {}.".format(unicode(barcode))
     opp = {
         'type': 'barcode',
         'opp_id': generate_opp_id(),
@@ -133,6 +134,7 @@ def create_barcode_opp(trello_db, barcode, desc=''):
 def publish_unknown(opp):
     """ The barcode wasn't found in the database, so there is no known
     description or suggestions. """
+    print "Publishing learning opportunity without description."
     subject = '''Didn't Recognize Barcode'''
     message = '''Hi! Oscar here. You scanned a code ({}) I didn't recognize.  '''.format(opp['barcode'])
     message += '''Care to fill me in?''' + '\n' + opp_url(opp)
@@ -147,6 +149,7 @@ def publish_unknown(opp):
 def publish_learning_opp(opp, suggestions):
     """ The barcode and description were found, but we'll offer to learn a
     nickname for next time. """
+    print "Publishing learning opportunity with description."
     subject = '''Learning: {}'''.format(opp['desc'])
     message = '''Hi! Oscar here. I added a new item "{}" to the list.'''.format(opp['desc'])
     message += '''\nYou can create a shorter name to use next time here:'''
@@ -283,9 +286,8 @@ while True:
         publish_unknown(opp)
         continue
     except CodeNotFound:
-        print "Barcode {0} not found in UPC database; creating learning opportunity.".format(unicode(barcode))
+        print "Barcode {0} not found in UPC database.".format(unicode(barcode))
         opp = create_barcode_opp(trello_db, barcode)
-        print "Code not found. Publishing learning opportunity."
         publish_unknown(opp)
         continue
     except SignatureInvalid:
@@ -301,7 +303,6 @@ while True:
     except requests.exceptions.HTTPError, e:
         print "Unexpected error while contacting UPC database: \'{}\'".format(e.message)
         opp = create_barcode_opp(trello_db, barcode)
-        print "Publishing learning opportunity."
         publish_unknown(opp)
 
     # Add card with full description
@@ -309,7 +310,6 @@ while True:
 
     # Offer to learn a short name for this barcode
     opp = create_barcode_opp(trello_db, barcode, desc)
-    print "Creating learning opportunity."
 
     suggestions = []
 
@@ -322,5 +322,4 @@ while True:
     suggestions += find_keywords(desc)
 
     publish_learning_opp(opp, suggestions)
-    print "Publishing learning opportunity for short description."
 

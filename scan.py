@@ -280,30 +280,23 @@ while True:
     try:
         desc = upc_api.get_description(barcode)
         print "Received description '{0}' for barcode {1}.".format(desc, unicode(barcode))
-    except CodeInvalid:
-        print "Barcode {0} not recognized as a UPC.".format(unicode(barcode))
-        opp = create_barcode_opp(trello_db, barcode)
-        publish_unknown(opp)
-        continue
-    except CodeNotFound:
-        print "Barcode {0} not found in UPC database.".format(unicode(barcode))
-        opp = create_barcode_opp(trello_db, barcode)
-        publish_unknown(opp)
-        continue
-    except SignatureInvalid:
-        print "Unable to contact UPC database because signature is invalid."
-        opp = create_barcode_opp(trello_db, barcode)
-        publish_unknown(opp)
-        continue
-    except RequireFunds:
-        print "Unable to retrieve from UPC database due to insufficient funds."
-        opp = create_barcode_opp(trello_db, barcode)
-        publish_unknown(opp)
-        continue
-    except requests.exceptions.HTTPError, e:
-        print "Unexpected error while contacting UPC database: \'{}\'".format(e.message)
-        opp = create_barcode_opp(trello_db, barcode)
-        publish_unknown(opp)
+    except Exception, err:
+        # If it's a just a problem contacting the database, we'll make an entry
+        # in the log and carry on.
+        upc_database_issues = {
+            CodeInvalid: "Barcode {} not recognized as a UPC.".format(unicode(barcode)),
+            SignatureInvalid: "Unable to contact UPC database because signature is invalid.",
+            RequireFunds: "Unable to retrieve from UPC database due to insufficient funds.",
+            CodeNotFound: "Barcode {} not found in UPC database.".format(unicode(barcode)),
+            requests.exceptions.HTTPError: "Unexpected error while contacting UPC database: \'{}\'".format(err.message)
+        }
+        if err in upc_database_issues:
+            print upc_database_issues[err]
+            opp = create_barcode_opp(trello_db, barcode)
+            publish_unknown(opp)
+            continue
+        else:
+            raise err
 
     # Add card with full description
     add_grocery_item(trello_api, desc)

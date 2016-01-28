@@ -6,12 +6,11 @@ import struct
 import select
 import socket
 import random
-import json
-import urllib2
 import hashlib
 import hmac
 import base64
 import io
+import requests
 
 import trello
 from twilio.rest import TwilioRestClient
@@ -39,12 +38,16 @@ def parse_scanner_data(scanner_data):
     return ''.join(upc_chars)
 
 
-class CodeNotFound(Exception): pass
+# Potential problems getting descriptions from the UPC database
 class CodeInvalid(Exception): pass
+class SignatureInvalid(Exception): pass
+class RequireFunds(Exception): pass
+class CodeNotFound(Exception): pass
 
 
 class UPCAPI:
     BASEURL = 'https://www.digit-eyes.com/gtin/v2_0'
+    SUCCESS = 200  # Return status code for successful retrieval
 
     def __init__(self, app_key, auth_key):
         self._app_key = app_key
@@ -54,25 +57,38 @@ class UPCAPI:
         h = hmac.new(self._auth_key, upc, hashlib.sha1)
         return base64.b64encode(h.digest())
 
-    def _url(self, upc):
-        return '{0}/?upcCode={1}&field_names=description&language=en&app_key={2}&signature={3}'.format(
-            self.BASEURL, upc, self._app_key, self._signature(upc))
+    def _decode_errors(self, response):
+        """ Translate HTTP error status codes for retrieval operation and raise
+        appropriate exception.  Codes last updated 01/28/16. """
+        code = response.status_code
+        message = response.json()['return_message']
+        known_errors = {
+            400: CodeInvalid,  # UPC/EAN Code invalid
+            401: SignatureInvalid,  # Signature invalid
+            402: RequireFunds,  # Requires funding
+            404: CodeNotFound,  # UPC/EAN not found
+        }
+        try:
+            raise known_errors[code](message)
+        except ValueError:  # Unknown error
+            response.raise_for_status()
+
 
     def get_description(self, upc):
         """Returns the product description for the given UPC.
 
            `upc`: A string containing the UPC."""
-        url = self._url(upc)
-        try:
-            json_blob = urllib2.urlopen(url).read()
-            return json.loads(json_blob)['description'].encode('iso-8859-1')
-        except urllib2.HTTPError, e:
-            if 'UPC/EAN code invalid' in e.msg:
-                raise CodeInvalid(e.msg)
-            elif 'Not found' in e.msg:
-                raise CodeNotFound(e.msg)
-            else:
-                raise
+        response = requests.get(self.BASEURL, params=[
+            ('upcCode', upc),
+            ('field_names', 'description'),
+            ('language', 'en'),
+            ('app_key', self._app_key),
+            ('signature', self._signature(upc))
+        ])
+        if response.status_code == self.SUCCESS:
+            return response.json()['description']
+        else:
+            self._decode_errors(response)
 
 
 class FakeAPI:
@@ -139,9 +155,8 @@ def publish_learning_opp(opp, suggestions):
         # Add links to auto-learn a suggested nickname
         message += '''\nor you can quickly select one of the following:'''
         for name in suggestions:
-            url = '{main_url}?item={name}'.format(main_url=opp_url(opp), name=name)
-            url = url.replace(' ', '+')  # encode spaces in hyperlink
-            message += '\n\'{name}\' -> {url}'.format(url=url, name=name)
+            req = requests.Request('GET', opp_url(opp), params={'item': name}).prepare()
+            message += '\n\'{name}\' -> {url}'.format(url=req.url, name=name)
 
     communication_method = conf.get()['communication_method']
     if communication_method == 'email':
@@ -263,9 +278,8 @@ while True:
         desc = upc_api.get_description(barcode)
         print "Received description '{0}' for barcode {1}.".format(desc, unicode(barcode))
     except CodeInvalid:
-        print "Barcode {0} not recognized as a UPC; creating learning opportunity.".format(unicode(barcode))
+        print "Barcode {0} not recognized as a UPC.".format(unicode(barcode))
         opp = create_barcode_opp(trello_db, barcode)
-        print "Code not UPC. Publishing learning opportunity."
         publish_unknown(opp)
         continue
     except CodeNotFound:
@@ -274,8 +288,18 @@ while True:
         print "Code not found. Publishing learning opportunity."
         publish_unknown(opp)
         continue
-    except urllib2.HTTPError, e:
-        print "Unexpected error while contacting UPC database: \'{}\'".format(e.msg)
+    except SignatureInvalid:
+        print "Unable to contact UPC database because signature is invalid."
+        opp = create_barcode_opp(trello_db, barcode)
+        publish_unknown(opp)
+        continue
+    except RequireFunds:
+        print "Unable to retrieve from UPC database due to insufficient funds."
+        opp = create_barcode_opp(trello_db, barcode)
+        publish_unknown(opp)
+        continue
+    except requests.exceptions.HTTPError, e:
+        print "Unexpected error while contacting UPC database: \'{}\'".format(e.message)
         opp = create_barcode_opp(trello_db, barcode)
         print "Publishing learning opportunity."
         publish_unknown(opp)

@@ -139,7 +139,9 @@ def publish_learning_opp(opp, suggestions):
         # Add links to auto-learn a suggested nickname
         message += '''\nor you can quickly select one of the following:'''
         for name in suggestions:
-            message += '\n\'{name}\' -> {main_url}?item={name}'.format(main_url=opp_url(opp), name=name)
+            url = '{main_url}?item={name}'.format(main_url=opp_url(opp), name=name)
+            url = url.replace(' ', '+')  # encode spaces in hyperlink
+            message += '\n\'{name}\' -> {url}'.format(url=url, name=name)
 
     communication_method = conf.get()['communication_method']
     if communication_method == 'email':

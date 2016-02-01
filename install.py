@@ -4,6 +4,7 @@
    https://github.com/danslimmon/oscar"""
 
 import os
+import io
 import sys
 import subprocess
 import re
@@ -187,11 +188,11 @@ trello_api.set_token(trello_token)
 # Grocery list
 trello_api.boards.new_list(trello_grocery_board, 'Groceries')
 # oscar_db lists
-for db_list in ['synonym_rules', 'barcode_rules', 'learning_opportunities']:
+for db_list in ['synonym_rules', 'keywords', 'barcode_rules', 'learning_opportunities']:
     trello_api.boards.new_list(trello_db_board, db_list)
 
 
-######################################## Create the default description rules
+######################################## Create the default synonym rules
 new_rules = [
     {'search_term': 'ale', 'item': 'beer'},
     {'search_term': 'ipa', 'item': 'beer'},
@@ -204,6 +205,15 @@ from lib import trellodb
 trello_db = trellodb.TrelloDB(trello_api, trello_db_board)
 for rule in new_rules:
     trello_db.insert('synonym_rules', rule)
+
+
+######################################## Upload default keyword list
+with io.open('keywords.txt', encoding='UTF8', mode='r') as kw_file:
+    keywords = [row.strip('\r\n') for row in kw_file.readlines()]
+print "Uploading keywords; this may take several minutes..."
+for word in keywords:
+    trello_db.insert('keywords', word)
+print "Upload complete!"
 
 
 ######################################## Oscar configs

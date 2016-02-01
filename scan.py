@@ -211,13 +211,12 @@ def match_synonym_rule(trello_db, desc):
             return rule
     return None
 
-# Load list of keywords
-with io.open('/var/oscar/keywords.txt', encoding='UTF8', mode='r') as kw_file:
-    keywords = [row.strip('\r\n') for row in kw_file.readlines()]
 
-def find_keywords(desc):
+def find_keywords(trello_db, desc):
     """ Returns keywords in the item description to suggest as short names. """
+    keywords = trello_db.get_all('keywords')
     return [word for word in keywords if word.lower() in desc.lower()]
+
 
 def add_grocery_item(trello_api, item, desc=None):
     """Adds the given item to the grocery list (if it's not already present)."""
@@ -312,7 +311,7 @@ while True:
         suggestions.append(desc_rule['item'])
 
     # Match against keyword list
-    suggestions += find_keywords(desc)
+    suggestions += find_keywords(trello_db, desc)
 
     publish_learning_opp(opp, suggestions)
 

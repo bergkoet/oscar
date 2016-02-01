@@ -1,305 +1,298 @@
-Asparagus
-V8
-Broccoli
-Carrots
-Cauliflower
-Celery
-Corn
-Cucumbers
-Lettuce
-Greens
-Mushrooms
-Onions
-Peppers
-Potatoes
-Spinach
-Squash
-Zucchini
-Tomatoes
-BBQ sauce
-Gravy
-Honey
-Hot sauce
-Jam
-Jelly
-Preserves
-Ketchup
-Mustard
-Mayonnaise
-Pasta sauce
-Relish
-Salad dressing
-Salsa
-Soy sauce
-Steak sauce
-Syrup
-Worcestershire sauce
-Butter
-Cottage cheese
-Half & half
-Milk
-Sour cream
-Whipped cream
-Yogurt
-Margarine
-Bagels
-Croissants
-Buns
-Rolls
-Cake
-Cookies
-Donuts
-Pastries
-Fresh bread
-Pie
-Pita bread
-Sliced bread
-Antiperspirant
-Deodorant
-Bath soap
-Hand soap
-Condoms
-Cosmetics
-Cotton swabs
-Facial cleanser
-Facial tissue
-Feminine products
-Floss
-Hair gel
-Lip balm
-Moisturizing lotion
-Mouthwash
-Razors
-Shaving cream
-Shampoo
-Conditioner
-Sunblock
-Toilet paper
-Toothpaste
-Vitamins
-Supplements
-Cotton balls
-Hair spray
-Air freshener
-Bathroom cleaner
-Bleach
-Detergent
-Dish
-Dishwasher soap
-Garbage bags
-Glass cleaner
-Mop head
-Vacuum bags
-Sponges
-Scrubbers
-CDRs
-DVDRs
-Notepad
-Envelopes
-Glue
-Tape
-Printer paper
-Pens
-Pencils
-Postage stamps
-Baking powder
-Soda
-Bread crumbs
-Cake
-Brownie mix
-icing
-Chocolate chips
-Cocoa
-Flour
-Shortening
-Sugar
-Sugar substitute
-Yeast
+air freshener
+allergy
+aluminum foil
+antacid
+antibiotic
+antidiarrheal
+antiperspirant
+apples
+applesauce
+asparagus
+aspirin
+automotive
+avocados
+bbq sauce
+baby food
+baby wash
+bacon
+bagels
+baked beans
+baking powder
 baking soda
-Bleu cheese
-Cheddar
-Cottage cheese
-Cream cheese
-Feta
-Goat cheese
-Mozzarella
-Parmesan
-Provolone
-Ricotta
-Sandwich slices
-Swiss
-Apples
-Avocados
-Bananas
-Berries
-Cherries
-Grapefruit
-Grapes
-Kiwis
-Lemons
-Limes
-Melon
-Nectarines
-Oranges
-Peaches
-Pears
-Plums
-Bouillon cubes
-Cereal
-Coffee
-Instant potatoes
-Lemon juice
-Lime juice
-Mac & cheese
-Olive oil
-Packaged meals
-Pancake mix
-Waffle mix
-Pasta
-Peanut butter
-Pickles
-Rice
-Tea
-Vegetable oil
-Vinegar
+bananas
+band-aids
+basil
+bath soap
+bathroom cleaner
+batteries
+beef
+beer
+berries
+black pepper
+bleach
+bleu cheese
+bouillon cubes
+bread
+bread crumbs
+breakfasts
+broccoli
+broth
+brownie mix
+buns
+burritos
+butter
+cake
+candy
+carrots
+cat treats
+cat food
+cat litter
+catfish
+cauliflower
+celery
+cereal
+champagne
+charcoal
+cheddar
+cherries
+chicken
+chili
+chip dip
+chocolate chips
+cigarettes
+cilantro
+cinnamon
+club soda
+cocoa
+coffee
 coffee filters
-Bacon
-Sausage
-Beef
-Chicken
-Ground beef
-ground Turkey
-Ham
-Pork
-Hot dogs
-Lunchmeat
-Turkey
-Candy
-Gum
-Cookies
-Crackers
-Dried fruit
-Granola bars
-Granola Mix
-Nuts
-Seeds
-Oatmeal
-Popcorn
-Potato chips
-Corn chips
-Pretzels
-Allergy
-Antibiotic
-Antidiarrheal
-Aspirin
-Antacid
-Band-aids
-Cold
-Flu
-Sinus
-Pain reliever
-Cigarettes
-Automotive
-Batteries
-Charcoal
-Propane
-Flowers
-Greeting card
-Insect repellent
-Light bulbs
-Newspaper
-Magazine
-Aluminum foil
-Napkins
-Non-stick spray
-Paper towels
-Plastic wrap
-Sandwich bags
-Freezer bags
-Wax paper
-Catfish
-Crab
-Lobster
-Mussels
-Oysters
-Salmon
-Shrimp
-Tilapia
-Tuna
-Baby food
-Diapers
-Formula
-Lotion
-Baby wash
-Wipes
-Bagels
-Chip dip
-Eggs
-Fake eggs
-English muffins
-Fruit juice
-Hummus
-Tofu
-Tortillas
-Applesauce
-Baked beans
-Broth
-Fruit
-Olives
-Tinned meats
-Tuna
-Chicken
-Soup
-Chili
-Tomatoes
-Veggies
-Breakfasts
-Burritos
-Fish sticks
-Fries
-Tater tots
-Ice cream
-Sorbet
-Juice concentrate
-Pizza
-Pizza Rolls
-Popsicles
-TV dinner
-Vegetables
-Basil
-Black pepper
-Cilantro
-Cinnamon
-Garlic
-Ginger
-Mint
-Oregano
-Paprika
-Parsley
-Red pepper
-Salt
-Vanilla extract
-Beer
-Club soda
-Tonic
-Champagne
-Gin
-Juice
-Mixers
-Red wine
-White wine
-wine
-Rum
-Saké
-Soda pop
-Sports drink
-Whiskey
-Vodka
-Cat food
-cat Treats
-Cat litter
-Dog food
-dog Treats
-Flea treatment
-Pet shampoo
+cold
+conditioner
+condoms
+cookies
+corn
+corn chips
+cosmetics
+cottage cheese
+cotton balls
+cotton swabs
+crab
+crackers
+cream cheese
+croissants
+cucumbers
+deodorant
+detergent
+diapers
+dish
+dishwasher soap
+dog treats
+dog food
+donuts
+dried fruit
+eggs
+english muffins
+envelopes
+facial cleanser
+facial tissue
+fake eggs
+feminine products
+feta
+fish sticks
+flea treatment
+floss
+flour
+flowers
+flu
+formula
+freezer bags
+fresh bread
+fries
+fruit
+fruit juice
+garbage bags
+garlic
+gin
+ginger
+glass cleaner
+glue
+goat cheese
+granola mix
+granola bars
+grapefruit
+grapes
+gravy
+greens
+greeting card
+ground turkey
+ground beef
+gum
+hair gel
+hair spray
+half & half
+ham
+hand soap
+honey
+hot dogs
+hot sauce
+hummus
+ice cream
+icing
+insect repellent
+instant potatoes
+jam
+jelly
+juice
+juice concentrate
+ketchup
+kiwis
+lemon juice
+lemons
+lettuce
+light bulbs
+lime juice
+limes
+lip balm
+lobster
+lotion
+lunchmeat
+mac & cheese
+magazine
+margarine
+mayonnaise
+melon
+milk
+mint
+mixers
+moisturizing lotion
+mop head
+mouthwash
+mozzarella
+mushrooms
+mussels
+mustard
+napkins
+nectarines
+newspaper
+non-stick spray
+notepad
+nuts
+oatmeal
+olive oil
+olives
+onions
+oranges
+oregano
+oysters
+packaged meals
+pain reliever
+pancake mix
+paper towels
+paprika
+parmesan
+parsley
+pasta
+pasta sauce
+pastries
+peaches
+peanut butter
+pears
+pencils
+pens
+peppers
+pet shampoo
+pickles
+pie
+pita bread
+pizza
+pizza rolls
+plastic wrap
+plums
+popcorn
+popsicles
+pork
+postage stamps
+potato chips
+potatoes
+preserves
+pretzels
+printer paper
+propane
+provolone
+razors
+red pepper
+red wine
+relish
+rice
+ricotta
+rolls
+rum
+saké
+salad dressing
+salmon
+salsa
+salt
+sandwich bags
+sandwich slices
+sausage
+scrubbers
+seeds
+shampoo
+shaving cream
+shortening
+shrimp
+sinus
+sliced bread
+soda
+soda pop
+sorbet
+soup
+sour cream
+soy sauce
+spinach
+sponges
+sports drink
+squash
 sriracha
+steak sauce
+sugar
+sugar substitute
+sunblock
+supplements
+swiss
+syrup
+tv dinner
+tape
+tater tots
+tea
+tilapia
+tinned meats
+tofu
+toilet paper
+tomatoes
+tomatoes
+tonic
+toothpaste
+tortillas
+tuna
+turkey
+v8
+vacuum bags
+vanilla extract
+vegetable oil
+vegetables
+veggies
+vinegar
+vitamins
+vodka
+waffle mix
+wax paper
+whipped cream
+whiskey
+white wine
+wine
+wipes
+worcestershire sauce
+yeast
+yogurt
+zucchini

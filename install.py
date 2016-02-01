@@ -164,13 +164,8 @@ run_command('pip install PyYAML trello twilio')
 
 
 ######################################## oscar_web dependencies
-run_command('wget http://nodejs.org/dist/v0.10.22/node-v0.10.22.tar.gz')
-run_command('tar xzvf node-v0.10.22.tar.gz')
-os.chdir('node-v0.10.22')
-run_command('./configure')
-run_command('make')
-run_command('make install')
-os.chdir('..')
+run_command('wget http://node-arm.herokuapp.com/node_latest_armhf.deb')
+run_command('dpkg -i node_latest_armhf.deb')
 
 
 ######################################## Dependencies of both
@@ -180,7 +175,7 @@ run_command('apt-get install git supervisor')
 
 ######################################## Oscar itself
 os.chdir('/var')
-run_command('git clone https://github.com/danslimmon/oscar.git')
+run_command('git clone https://github.com/bergkoet/oscar.git')
 os.chdir('/var/oscar/web')
 run_command('npm install')
 
@@ -192,60 +187,23 @@ trello_api.set_token(trello_token)
 # Grocery list
 trello_api.boards.new_list(trello_grocery_board, 'Groceries')
 # oscar_db lists
-for db_list in ['description_rules', 'barcode_rules', 'learning_opportunities']:
+for db_list in ['synonym_rules', 'barcode_rules', 'learning_opportunities']:
     trello_api.boards.new_list(trello_db_board, db_list)
 
 
 ######################################## Create the default description rules
 new_rules = [
-    {'search_term': 'coffee', 'item': 'coffee'},
-    {'search_term': 'soymilk', 'item': 'soy milk'},
-    {'search_term': 'soy milk', 'item': 'soy milk'},
-    {'search_term': 'soy sauce', 'item': 'soy sauce'},
-    {'search_term': 'beer', 'item': 'beer'},
     {'search_term': 'ale', 'item': 'beer'},
-    {'search_term': 'sriracha', 'item': 'sriracha'},
-    {'search_term': 'milk', 'item': 'milk'},
-    {'search_term': 'olive oil', 'item': 'olive oil'},
-    {'search_term': 'cereal', 'item': 'cereal'},
-    {'search_term': 'peanut butter', 'item': 'peanut butter'},
-    {'search_term': 'ketchup', 'item': 'ketchup'},
-    {'search_term': 'baking powder', 'item': 'baking powder'},
-    {'search_term': 'yeast', 'item': 'yeast'},
-    {'search_term': 'baking soda', 'item': 'soda'},
-    {'search_term': 'beans', 'item': 'beans'},
-    {'search_term': 'bread crumbs', 'item': 'bread crumbs'},
-    {'search_term': 'broth', 'item': 'broth'},
-    {'search_term': 'cereal', 'item': 'cereal'},
-    {'search_term': 'chocolate', 'item': 'chocolate'},
-    {'search_term': 'cooking spray', 'item': 'cooking spray'},
-    {'search_term': 'cornmeal', 'item': 'cornmeal'},
-    {'search_term': 'cornstarch', 'item': 'cornstarch'},
-    {'search_term': 'crackers', 'item': 'crackers'},
-    {'search_term': 'raisins', 'item': 'raisins'},
-    {'search_term': 'vanilla extract', 'item': 'vanilla extract'},
-    {'search_term': 'flour', 'item': 'flour'},
-    {'search_term': 'mayo', 'item': 'mayo'},
-    {'search_term': 'garlic', 'item': 'garlic'},
-    {'search_term': 'pasta', 'item': 'pasta'},
-    {'search_term': 'bacon', 'item': 'bacon'},
-    {'search_term': 'bread', 'item': 'bread'},
-    {'search_term': 'potatoes', 'item': 'potatoes'},
-    {'search_term': 'rice', 'item': 'rice'},
-    {'search_term': 'soup', 'item': 'soup'},
-    {'search_term': 'sugar', 'item': 'sugar'},
-    {'search_term': 'tea', 'item': 'tea'},
-    {'search_term': 'tuna', 'item': 'tuna'},
-    {'search_term': 'evaporated milk', 'item': 'evaporated milk'},
-    {'search_term': 'vinegar', 'item': 'vinegar'},
-    {'search_term': 'eggs', 'item': 'eggs'},
-    {'search_term': 'chips', 'item': 'chips'},
+    {'search_term': 'ipa', 'item': 'beer'},
+    {'search_term': 'lager', 'item': 'beer'},
+    {'search_term': 'stout', 'item': 'beer'},
+    {'search_term': 'soymilk', 'item': 'soy milk'}
 ]
 os.chdir('/var/oscar')
 from lib import trellodb
 trello_db = trellodb.TrelloDB(trello_api, trello_db_board)
 for rule in new_rules:
-    trello_db.insert('description_rules', rule)
+    trello_db.insert('synonym_rules', rule)
 
 
 ######################################## Oscar configs
@@ -309,8 +267,8 @@ print 'If everything worked, then you should be able to start scanning'
 print 'barcodes with oscar. Check out the logs of the scanner process and'
 print 'the web app, respectively, at'
 print
-print '    /var/lib/supervisor/log/oscar_scan.log'
-print '    /var/lib/supervisor/log/oscar_web.log'
+print '    /var/log/supervisor/oscar_scan.log'
+print '    /var/log/supervisor/oscar_web.log'
 print
 print 'And report any bugs at https://github.com/danslimmon/oscar/issues.'
 print

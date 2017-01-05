@@ -289,8 +289,8 @@ while True:
             CodeNotFound: "Barcode {} not found in UPC database.".format(unicode(barcode)),
             requests.exceptions.HTTPError: "Unexpected error while contacting UPC database: \'{}\'".format(err.message)
         }
-        if err in upc_database_issues:
-            print upc_database_issues[err]
+        if err.__class__ in upc_database_issues:
+            print upc_database_issues[err.__class__]
             opp = create_barcode_opp(trello_db, barcode)
             publish_unknown(opp)
             continue
